@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calorie Tracker</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f8;
+      padding: 30px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th {
+      background: #f0f2f5;
+      padding: 10px;
+      text-align: left;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    tr:hover {
+      background: #fafafa;
+    }
+
+    .actions a {
+      margin-right: 10px;
+      text-decoration: none;
+    }
+
+    .edit {
+      color: #3498db;
+    }
+
+    .delete {
+      color: red;
+    }
+
+    .totals {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .box {
+      background: #eaf4fb;
+      padding: 15px;
+      border-radius: 8px;
+      width: 48%;
+      text-align: center;
+    }
+
+    .value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2980b9;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Calorie Tracker</h1>
+
+<div class="container">
+
+  <div class="card">
+    <h3>Add Meal</h3>
+    <form method="POST">
+      <input type="text" name="name" placeholder="Meal name" required>
+      <input type="number" name="calories" placeholder="Calories" required>
+      <input type="number" name="protein" placeholder="Protein" required>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>Totals</h3>
+
+    <div class="totals">
+      <div class="box">
+        <div>Total Calories</div>
+        <div class="value">{{ total_calories }}</div>
+      </div>
+
+      <div class="box">
+        <div>Total Protein</div>
+        <div class="value">{{ total_protein }}</div>
+      </div>
+    </div>
+
+    <br>
+    <a href="/reset" class="delete">Reset All Data</a>
+  </div>
+
+  <div class="card">
+    <h3>Meals</h3>
+
+    {% if meals %}
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Calories</th>
+        <th>Protein</th>
+        <th>Actions</th>
+      </tr>
+
+      {% for meal in meals %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ meal.name }}</td>
+        <td>{{ meal.calories }}</td>
+        <td>{{ meal.protein }}</td>
+        <td class="actions">
+          <a href="/edit/{{ loop.index0 }}" class="edit">Edit</a>
+          <a href="/delete/{{ loop.index0 }}" class="delete">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    {% else %}
+    <p>No meals yet</p>
+    {% endif %}
+  </div>
+
+</div>
+
+</body>
+</html>

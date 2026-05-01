@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Meal</title>
+</head>
+<body>
+
+<h2>Edit Meal</h2>
+
+<form method="POST">
+  <input type="text" name="name" value="{{ meal.name }}" required>
+  <input type="number" name="calories" value="{{ meal.calories }}" required>
+  <input type="number" name="protein" value="{{ meal.protein }}" required>
+  <button type="submit">Save Changes</button>
+</form>
+
+<br>
+<a href="/">Back</a>
+
+</body>
+</html>
